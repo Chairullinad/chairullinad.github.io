@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dessy Rahmawati — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:   #0f2744;
+      --blue:   #1a3f6f;
+      --accent: #2e7dd1;
+      --teal:   #0ea5a0;
+      --light:  #f0f5fc;
+      --white:  #ffffff;
+      --gray:   #64748b;
+      --text:   #1e293b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(15,39,68,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); letter-spacing: 0.02em; }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; background: var(--navy);
+      display: flex; align-items: center;
+      padding: 100px 60px 60px; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(46,125,209,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(14,165,160,0.08) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 80px; align-items: center;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); color: var(--white); line-height: 1.1; margin-bottom: 8px; }
+    .hero-name em { font-style: italic; color: var(--teal); }
+    .hero-title { font-size: 1.1rem; font-weight: 300; color: rgba(255,255,255,0.55); margin-bottom: 28px; letter-spacing: 0.02em; }
+    .hero-desc { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.65); max-width: 520px; margin-bottom: 40px; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--teal); color: var(--white); padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.25s; letter-spacing: 0.02em; }
+    .btn-primary:hover { background: #0c8f8a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,165,160,0.3); }
+    .btn-outline { display: inline-block; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.8); padding: 14px 32px; border-radius: 8px; font-weight: 500; font-size: 0.9rem; text-decoration: none; transition: all 0.25s; }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* Avatar */
+    .hero-avatar { position: relative; width: 260px; height: 260px; flex-shrink: 0; }
+    .avatar-ring { position: absolute; inset: -12px; border-radius: 50%; border: 2px solid rgba(14,165,160,0.3); animation: rotate 12s linear infinite; }
+    .avatar-ring::before { content: ''; position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; background: var(--teal); border-radius: 50%; transform: translateX(-50%); }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    .avatar-circle {
+      width: 260px; height: 260px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(26,63,111,0.8), rgba(14,165,160,0.4));
+      border: 3px solid rgba(14,165,160,0.4);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .avatar-circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: none; }
+    .avatar-circle img.loaded { display: block; }
+    .avatar-svg { width: 180px; height: 180px; margin-top: 30px; }
+
+    .hero-stats { display: flex; gap: 32px; margin-top: 40px; }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--white); line-height: 1; }
+    .stat-num span { color: var(--teal); }
+    .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 90px 60px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.78rem; font-weight: 600; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--navy); line-height: 1.15; margin-bottom: 48px; }
+    .section-title em { font-style: italic; color: var(--accent); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--light); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .about-text p { font-size: 1rem; line-height: 1.9; color: var(--gray); margin-bottom: 20px; text-align: justify; }
+    .about-highlight { background: var(--navy); border-radius: 16px; padding: 32px; color: var(--white); }
+    .about-highlight h4 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 20px; color: var(--teal); }
+    .highlight-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+    .highlight-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); flex-shrink: 0; margin-top: 6px; }
+    .highlight-item p { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .skill-card { background: var(--light); border: 1px solid rgba(26,63,111,0.08); border-radius: 16px; padding: 28px; transition: all 0.3s; position: relative; overflow: hidden; }
+    .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--teal)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,63,111,0.1); }
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-icon { font-size: 2rem; margin-bottom: 16px; }
+    .skill-card h4 { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { background: rgba(26,63,111,0.08); color: var(--blue); font-size: 0.75rem; font-weight: 500; padding: 4px 10px; border-radius: 100px; }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: var(--navy); }
+    #portfolio .section-title { color: var(--white); }
+    #portfolio .section-title em { color: var(--teal); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .porto-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; transition: all 0.3s; }
+    .porto-card:hover { transform: translateY(-6px); border-color: rgba(14,165,160,0.4); box-shadow: 0 20px 48px rgba(0,0,0,0.3); }
+    .porto-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; overflow: hidden; }
+    .porto-thumb-1 { background: linear-gradient(135deg, #0f2744, #1a3f6f); }
+    .porto-thumb-2 { background: linear-gradient(135deg, #0a2440, #0ea5a0); }
+    .porto-thumb-3 { background: linear-gradient(135deg, #1a3f6f, #2e7dd1); }
+    .porto-thumb-4 { background: linear-gradient(135deg, #0f2744, #2e7dd1); }
+    .porto-thumb-5 { background: linear-gradient(135deg, #0a3040, #0ea5a0); }
+    .porto-body { padding: 24px; }
+    .porto-badge { font-size: 0.72rem; font-weight: 600; color: var(--teal); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
+    .porto-card h4 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+    .porto-card p { font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 20px; text-align: justify; }
+    .porto-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .stack-tag { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.6); font-size: 0.72rem; padding: 4px 10px; border-radius: 100px; }
+    .porto-link { display: inline-flex; align-items: center; gap: 6px; color: var(--teal); font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: gap 0.2s; }
+    .porto-link:hover { gap: 10px; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--light); }
+    .exp-card { background: var(--white); border-radius: 20px; padding: 36px; border: 1px solid rgba(26,63,111,0.08); margin-bottom: 24px; position: relative; overflow: hidden; }
+    .exp-card::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 4px; background: linear-gradient(180deg, var(--accent), var(--teal)); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .exp-header h4 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--navy); }
+    .exp-header span { font-size: 0.82rem; color: var(--gray); background: var(--light); padding: 4px 12px; border-radius: 100px; white-space: nowrap; }
+    .exp-company { font-size: 0.9rem; color: var(--accent); font-weight: 500; margin-bottom: 16px; }
+    .exp-list { list-style: none; }
+    .exp-list li { font-size: 0.9rem; color: var(--gray); line-height: 1.7; padding: 6px 0 6px 20px; position: relative; text-align: justify; }
+    .exp-list li::before { content: ''; position: absolute; left: 0; top: 14px; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+    .award-badge { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; font-size: 0.8rem; font-weight: 600; padding: 6px 14px; border-radius: 100px; margin-top: 12px; }
+    .exp-subtitle { font-size: 0.85rem; font-weight: 600; color: var(--blue); margin: 20px 0 8px; }
+
+    /* ── ORGANISASI ── */
+    #organisasi { background: var(--white); }
+    .org-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .org-card { background: var(--light); border-radius: 12px; padding: 20px 24px; border-left: 3px solid var(--teal); }
+    .org-card h5 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .org-card .org-role { font-size: 0.82rem; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+    .org-card .org-year { font-size: 0.78rem; color: var(--gray); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--navy); text-align: center; }
+    #contact .section-title { color: var(--white); }
+    #contact .section-title em { color: var(--teal); }
+    .contact-sub { font-size: 1.05rem; color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto 48px; line-height: 1.8; }
+    .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: var(--white); padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.25s; }
+    .contact-btn:hover { background: var(--teal); border-color: var(--teal); transform: translateY(-2px); }
+    .contact-btn svg { width: 18px; height: 18px; }
+
+    footer { background: rgba(0,0,0,0.3); text-align: center; padding: 24px; font-size: 0.82rem; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.06); }
+
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 60px 24px; }
+      #hero { padding: 100px 24px 60px; }
+      .hero-content { grid-template-columns: 1fr; gap: 40px; }
+      .hero-avatar { display: none; }
+      .about-grid, .skills-grid, .portfolio-grid, .org-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Dessy<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#hero">Beranda</a></li>
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#skills">Keahlian</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#experience">Pengalaman</a></li>
+      <li><a href="#organisasi">Organisasi</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div>
+        <h1 class="hero-name">Dessy Rahmawati<br><em>Chairullina</em></h1>
+        <p class="hero-title">IT Professional | Systems Analysis & Software Development</p>
+        <p class="hero-desc">
+          Berpengalaman dalam analisis kebutuhan sistem, pengembangan aplikasi, integrasi regulasi nasional, dan pengelolaan proyek IT di lingkungan yang kompleks dan berstandar tinggi.
+        </p>
+        <div class="hero-btns">
+          <a href="#portfolio" class="btn-primary">Lihat Portfolio</a>
+          <a href="#contact" class="btn-outline">Hubungi Saya</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num">3<span>+</span></div>
+            <div class="stat-label">Tahun Pengalaman</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">300<span>+</span></div>
+            <div class="stat-label">Pengguna Sistem</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">5<span>+</span></div>
+            <div class="stat-label">Project Selesai</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-avatar">
+        <div class="avatar-ring"></div>
+        <div class="avatar-circle">
+          <!-- Ganti src dengan path foto kamu setelah upload ke GitHub -->
+          <!-- Contoh: src="foto.jpg" -->
+          <img id="profile-photo" src="foto.jpg" alt="Dessy" onload="this.classList.add('loaded')" onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='block'" />
+          <svg id="avatar-fallback" class="avatar-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="170" rx="55" ry="35" fill="rgba(14,165,160,0.3)"/>
+            <rect x="72" y="110" width="56" height="60" rx="12" fill="rgba(26,63,111,0.8)"/>
+            <rect x="90" y="97" width="20" height="18" rx="6" fill="#e8c4a0"/>
+            <ellipse cx="100" cy="82" rx="30" ry="32" fill="#e8c4a0"/>
+            <ellipse cx="100" cy="60" rx="31" ry="18" fill="#3d2314"/>
+            <rect x="69" y="60" width="10" height="28" rx="5" fill="#3d2314"/>
+            <rect x="121" y="60" width="10" height="28" rx="5" fill="#3d2314"/>
+            <ellipse cx="90" cy="84" rx="4" ry="4.5" fill="#3d2314"/>
+            <ellipse cx="110" cy="84" rx="4" ry="4.5" fill="#3d2314"/>
+            <circle cx="91.5" cy="82.5" r="1.2" fill="white"/>
+            <circle cx="111.5" cy="82.5" r="1.2" fill="white"/>
+            <path d="M92 94 Q100 100 108 94" stroke="#b07050" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="62" y="138" width="76" height="48" rx="4" fill="#1a3f6f"/>
+            <rect x="65" y="141" width="70" height="42" rx="3" fill="#0f2744"/>
+            <rect x="68" y="144" width="64" height="36" rx="2" fill="#0ea5a0" opacity="0.2"/>
+            <rect x="72" y="150" width="30" height="3" rx="1.5" fill="rgba(14,165,160,0.7)"/>
+            <rect x="72" y="157" width="44" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+            <rect x="72" y="164" width="36" height="3" rx="1.5" fill="rgba(14,165,160,0.5)"/>
+            <rect x="72" y="171" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label">Tentang Saya</p>
+      <h2 class="section-title">Profesional IT dengan<br><em>Pengalaman Nyata di Lapangan</em></h2>
+      <div class="about-grid fade-up">
+        <div class="about-text">
+          <p>Saya Dessy Rahmawati Chairullina, lulusan Teknik Informatika Universitas Diponegoro dengan IPK 3.63. Saat ini berkarier sebagai IT Research & Development di RSU Indriati Boyolali, dengan fokus pada pengembangan dan implementasi sistem informasi skala organisasi.</p>
+          <p>Selama berkarier, saya terlibat langsung dalam seluruh siklus pengembangan sistem, mulai dari analisis kebutuhan bersama pemangku kepentingan, perancangan arsitektur sistem, pengembangan aplikasi, integrasi dengan platform eksternal, hingga pelatihan pengguna dan evaluasi pasca-implementasi.</p>
+          <p>Saya terbiasa bekerja di lingkungan yang menuntut ketelitian tinggi, berkoordinasi dengan berbagai divisi, serta memaparkan hasil kerja langsung kepada pimpinan. Pengalaman ini membentuk kemampuan teknis sekaligus komunikasi yang kuat dalam mengelola proyek IT dari awal hingga selesai.</p>
+        </div>
+        <div class="about-highlight">
+          <h4>Pencapaian Utama</h4>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            <p>Membangun SIMRS terintegrasi yang kini digunakan oleh 300+ staf di seluruh unit rumah sakit, mendorong efisiensi operasional hingga 90% paperless</p>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            <p>Modul EMR dikerjakan dengan keterlibatan penuh dari analisis hingga implementasi dan berhasil lolos dokumen akreditasi rumah sakit</p>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            <p>Integrasi Satu Sehat (Kemenkes) real-time dan BPJS Smart Claim berhasil diimplementasikan sesuai standar regulasi nasional</p>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            <p>Penghargaan Bintang 5 dari Direktur TI BPJS Kesehatan atas komitmen implementasi sistem digital rumah sakit</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <p class="section-label">Keahlian</p>
+      <h2 class="section-title">Yang Saya<br><em>Kuasai</em></h2>
+      <div class="skills-grid">
+        <div class="skill-card fade-up">
+          <div class="skill-icon">🔍</div>
+          <h4>Analisis Sistem</h4>
+          <div class="skill-tags">
+            <span class="tag">Requirements Analysis</span>
+            <span class="tag">Flowchart</span>
+            <span class="tag">System Design</span>
+            <span class="tag">Dokumentasi Teknis</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">💻</div>
+          <h4>Pengembangan Aplikasi</h4>
+          <div class="skill-tags">
+            <span class="tag">Java</span>
+            <span class="tag">Python</span>
+            <span class="tag">PHP</span>
+            <span class="tag">Laravel</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">🗄️</div>
+          <h4>Database</h4>
+          <div class="skill-tags">
+            <span class="tag">MySQL</span>
+            <span class="tag">ERD Design</span>
+            <span class="tag">Query Optimasi</span>
+            <span class="tag">Navicat</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">🏥</div>
+          <h4>Healthcare IT</h4>
+          <div class="skill-tags">
+            <span class="tag">SIMRS</span>
+            <span class="tag">EMR</span>
+            <span class="tag">HIS</span>
+            <span class="tag">Satu Sehat</span>
+            <span class="tag">BPJS Smart Claim</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">📋</div>
+          <h4>Manajemen Proyek</h4>
+          <div class="skill-tags">
+            <span class="tag">Timeline Planning</span>
+            <span class="tag">Koordinasi Tim</span>
+            <span class="tag">Stakeholder Management</span>
+            <span class="tag">Pelaporan ke Pimpinan</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">🤝</div>
+          <h4>Komunikasi & Pelatihan</h4>
+          <div class="skill-tags">
+            <span class="tag">User Training</span>
+            <span class="tag">Presentasi</span>
+            <span class="tag">Analisis Kebutuhan</span>
+            <span class="tag">Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-inner">
+      <p class="section-label" style="color:rgba(14,165,160,0.8)">Portfolio</p>
+      <h2 class="section-title">Project yang<br><em>Pernah Saya Kerjakan</em></h2>
+      <div class="portfolio-grid" style="grid-template-columns: repeat(3, 1fr);">
+
+        <div class="porto-card fade-up">
+          <div class="porto-thumb porto-thumb-1">🌐</div>
+          <div class="porto-body">
+            <div class="porto-badge">Web App • Live</div>
+            <h4>dokterpanda.com</h4>
+            <p>Platform digital untuk praktik dokter swasta. Pasien dapat melakukan booking online dan mengakses sesi konsultasi langsung via live chat setelah jadwal dikonfirmasi. Admin mengelola seluruh data melalui dashboard terintegrasi.</p>
+            <div class="porto-stack">
+              <span class="stack-tag">Laravel</span>
+              <span class="stack-tag">MySQL</span>
+              <span class="stack-tag">HTML/CSS</span>
+              <span class="stack-tag">WhatsApp API</span>
+              <span class="stack-tag">Live Chat</span>
+            </div>
+            <a href="https://dokterpanda.com" target="_blank" class="porto-link">Lihat Website →</a>
+          </div>
+        </div>
+
+        <div class="porto-card fade-up">
+          <div class="porto-thumb porto-thumb-2">🏥</div>
+          <div class="porto-body">
+            <div class="porto-badge">Desktop App • RS Indriati</div>
+            <h4>Modul EMR</h4>
+            <p>Sistem rekam medis elektronik untuk seluruh unit klinis RSU Indriati Boyolali. Dikerjakan dengan keterlibatan penuh dari analisis kebutuhan, pengembangan, implementasi, hingga pelatihan pengguna. Berhasil lolos dokumen akreditasi rumah sakit.</p>
+            <div class="porto-stack">
+              <span class="stack-tag">Java Desktop</span>
+              <span class="stack-tag">MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="porto-card fade-up">
+          <div class="porto-thumb porto-thumb-3">💰</div>
+          <div class="porto-body">
+            <div class="porto-badge">Desktop App • Contract Project</div>
+            <h4>Modul Keuangan SIMRS</h4>
+            <p>Modul keuangan terintegrasi sebagai contract project di RSU Indriati Boyolali. Mencakup billing pasien, jurnal keuangan, pengelolaan Chart of Accounts, laporan keuangan, dan rekap manajerial yang terhubung dengan modul klinis.</p>
+            <div class="porto-stack">
+              <span class="stack-tag">Java Desktop</span>
+              <span class="stack-tag">MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="porto-card fade-up">
+          <div class="porto-thumb porto-thumb-4">🛒</div>
+          <div class="porto-body">
+            <div class="porto-badge">Desktop App • RS Indriati</div>
+            <h4>Modul Procurement</h4>
+            <p>Sistem pengadaan elektronik untuk pengelolaan pembelian obat dan alat kesehatan di RSU Indriati Boyolali. Dilengkapi alur persetujuan multi-level, transparansi vendor, dan manajemen anggaran terintegrasi.</p>
+            <div class="porto-stack">
+              <span class="stack-tag">Java Desktop</span>
+              <span class="stack-tag">MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="porto-card fade-up">
+          <div class="porto-thumb" style="background: linear-gradient(135deg, #0a2440, #1a6b5a);">🔗</div>
+          <div class="porto-body">
+            <div class="porto-badge">Integrasi • RS Indriati</div>
+            <h4>Bridging Satu Sehat & BPJS Smart Claim</h4>
+            <p>Terlibat dalam integrasi sistem RS dengan Satu Sehat (Kemenkes) secara real-time dan BPJS Smart Claim, mencakup penyesuaian struktur JSON, validasi data, bridging farmasi, dan e-rekam medis. Berkontribusi dalam pencapaian Penghargaan Bintang 5 dari Direktur TI BPJS Kesehatan.</p>
+            <div class="porto-stack">
+              <span class="stack-tag">REST API</span>
+              <span class="stack-tag">JSON Mapping</span>
+              <span class="stack-tag">Satu Sehat</span>
+              <span class="stack-tag">BPJS Smart Claim</span>
+              <span class="stack-tag">Java Desktop</span>
+              <span class="stack-tag">MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="porto-card fade-up">
+          <div class="porto-thumb" style="background: linear-gradient(135deg, #1a3f6f, #2e7dd1);">🔢</div>
+          <div class="porto-body">
+            <div class="porto-badge">Desktop App • Portfolio</div>
+            <h4>PoliQueue</h4>
+            <p>Sistem manajemen antrian dan rekam medis rawat jalan. Mencakup registrasi pasien, pemberian nomor antrian per poli, pencatatan rekam medis, dan pemantauan status antrian secara real-time.</p>
+            <div class="porto-stack">
+              <span class="stack-tag">Java Swing</span>
+              <span class="stack-tag">MySQL</span>
+              <span class="stack-tag">JDBC</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <p class="section-label">Pengalaman</p>
+      <h2 class="section-title">Perjalanan<br><em>Profesional Saya</em></h2>
+
+      <div class="exp-card fade-up">
+        <div class="exp-header">
+          <h4>IT Research & Development</h4>
+          <span>Jan 2023 – Sekarang</span>
+        </div>
+        <div class="exp-company">RSU Indriati Boyolali  •  Boyolali, Jawa Tengah</div>
+        <p class="exp-subtitle">Analisis & Pengembangan Sistem</p>
+        <ul class="exp-list">
+          <li>Menganalisis kebutuhan operasional melalui observasi lapangan dan diskusi dengan kepala unit serta representatif pengguna, kemudian merancang alur dan spesifikasi teknis sistem.</li>
+          <li>Membangun SIMRS terintegrasi yang menghubungkan proses klinis, keuangan, logistik, dan procurement di seluruh unit serta mendorong efisiensi operasional hingga 90% paperless.</li>
+          <li>Mengembangkan modul EMR dengan keterlibatan penuh dari analisis hingga implementasi, berhasil lolos dokumen akreditasi rumah sakit.</li>
+          <li>Berkontribusi dalam integrasi Satu Sehat (Kemenkes) secara real-time dan BPJS Smart Claim, mencakup penyesuaian struktur data dan validasi sesuai regulasi nasional.</li>
+          <li>Melatih 300+ staf lintas unit dan memaparkan progress sistem langsung kepada direksi secara berkala.</li>
+        </ul>
+        <p class="exp-subtitle">Manajemen Proyek</p>
+        <ul class="exp-list">
+          <li>Mengelola timeline pengembangan modul EMR, keuangan, dan procurement mulai dari perencanaan, eksekusi, hingga serah terima ke pengguna.</li>
+          <li>Berkoordinasi langsung dengan kepala unit, tim medis, dan manajemen RS untuk memastikan setiap modul selesai sesuai kebutuhan dan tepat waktu.</li>
+          <li>Menerima dan mengelola feedback pasca-rilis dari pengguna, melakukan iterasi perbaikan, serta mendokumentasikan setiap perubahan sistem.</li>
+        </ul>
+        <div class="award-badge">⭐ Penghargaan Bintang 5 BPJS Kesehatan — Direktur TI BPJS Kesehatan</div>
+      </div>
+
+      <div class="exp-card fade-up">
+        <div class="exp-header">
+          <h4>Freelance Developer</h4>
+          <span>2023 – Sekarang</span>
+        </div>
+        <div class="exp-company">dokterpanda.com  •  Proyek Mandiri</div>
+        <ul class="exp-list">
+          <li>Merancang dan mengembangkan platform digital untuk praktik dokter swasta secara end-to-end, mulai dari desain sistem, pengembangan frontend dan backend, hingga deployment di Hostinger.</li>
+          <li>Membangun fitur booking online, live chat konsultasi pasien-dokter, dashboard admin untuk manajemen jadwal, notifikasi WhatsApp otomatis, dan export data ke Excel.</li>
+          <li>Mengelola seluruh aspek proyek secara mandiri termasuk komunikasi dengan klien, revisi kebutuhan, dan pemeliharaan sistem pasca-launch.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANISASI -->
+  <section id="organisasi">
+    <div class="section-inner">
+      <p class="section-label">Organisasi</p>
+      <h2 class="section-title">Pengalaman<br><em>Organisasi & Kepanitiaan</em></h2>
+      <div class="org-grid fade-up">
+        <div class="org-card">
+          <h5>Indriati EO</h5>
+          <div class="org-role">Divisi Media & Teknis</div>
+          <div class="org-year">RSU Indriati Boyolali  •  2023 – Sekarang</div>
+        </div>
+        <div class="org-card">
+          <h5>DMC (Discipline Division)</h5>
+          <div class="org-role">Staff Project Planner</div>
+          <div class="org-year">Universitas Diponegoro  •  Agt 2019 – Apr 2021</div>
+        </div>
+        <div class="org-card">
+          <h5>ANFORCOM</h5>
+          <div class="org-role">Staff Public Relation</div>
+          <div class="org-year">Annual Informatics Competition  •  2019 & 2020</div>
+        </div>
+        <div class="org-card">
+          <h5>PKM Writing Training</h5>
+          <div class="org-role">Staff Dana Usaha</div>
+          <div class="org-year">Universitas Diponegoro  •  Jul 2019 – Jan 2020</div>
+        </div>
+        <div class="org-card">
+          <h5>OSPEK PPM BKI Semarang 2021</h5>
+          <div class="org-role">Divisi Acara</div>
+          <div class="org-year">Sep 2021 – Okt 2021</div>
+        </div>
+        <div class="org-card">
+          <h5>Volunteer KKN Informatika</h5>
+          <div class="org-role">Staff Public Relation</div>
+          <div class="org-year">Universitas Diponegoro  •  Jan 2022</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label" style="color:rgba(14,165,160,0.8)">Kontak</p>
+      <h2 class="section-title">Mari<br><em>Terhubung</em></h2>
+      <p class="contact-sub">Terbuka untuk peluang baru, kolaborasi proyek, atau diskusi seputar teknologi dan pengembangan sistem.</p>
+      <div class="contact-links">
+        <a href="mailto:chairullinadessy@gmail.com" class="contact-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+        <a href="https://linkedin.com/in/chairullinadessy" target="_blank" class="contact-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/chairullinad" target="_blank" class="contact-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="https://wa.me/6285712733866" target="_blank" class="contact-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Dessy Rahmawati Chairullina
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
